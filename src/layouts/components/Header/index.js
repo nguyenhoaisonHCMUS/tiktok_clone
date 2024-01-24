@@ -12,6 +12,8 @@ import {
     faMessage,
     faLocationArrow,
     faGear,
+    faCoins,
+    faSignOut,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
 // eslint-disable-next-line no-unused-vars
@@ -20,8 +22,7 @@ import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import Button from '~/components/Button';
 import Menu from '~/components/Popper/Menu';
-import { faBookmark, faUser } from '@fortawesome/free-regular-svg-icons';
-import { faTiktok } from '@fortawesome/free-brands-svg-icons';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import Search from '../Search';
 import config from '~/config';
 
@@ -32,7 +33,7 @@ const MENU_ITEM = [
         icon: <FontAwesomeIcon icon={faGlobe} />,
         title: 'English',
         children: {
-            tilte: 'Language',
+            title: 'Language',
             data: [
                 {
                     code: 'eng',
@@ -80,32 +81,33 @@ const MENU_ITEM = [
     },
 ];
 
-const USER_MENU_ITEM = [
-    {
-        icon: <FontAwesomeIcon icon={faUser} />,
-        title: 'View Profile',
-        to: '/userinfo',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faBookmark} />,
-        title: 'Favorites',
-        to: '/userinfo',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faTiktok} />,
-        title: 'Get Coins',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faGear} />,
-        title: 'Settings',
-        to: '/setting',
-    },
-    ...MENU_ITEM,
-];
-
 function Header() {
     const currentUser = true;
 
+    const userMenu = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'View profile',
+            to: '/profile',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faCoins} />,
+            title: 'Get coins',
+            to: '/coin',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faGear} />,
+            title: 'Settings',
+            to: '/settings',
+        },
+        ...MENU_ITEM,
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Log out',
+            to: '/logout',
+            separate: true,
+        },
+    ];
     console.log();
     return (
         <header className={cx('wrapper')}>
@@ -136,7 +138,7 @@ function Header() {
                                 </button>
                             </Tippy>
 
-                            <Menu items={USER_MENU_ITEM}>
+                            <Menu items={userMenu}>
                                 <div className={cx('userlogin-image')}>
                                     <img
                                         src="https://d1hjkbq40fs2x4.cloudfront.net/2016-01-31/files/1045.jpg"

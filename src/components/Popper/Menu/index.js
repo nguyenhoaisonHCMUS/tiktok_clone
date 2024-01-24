@@ -5,6 +5,7 @@ import classNames from 'classnames/bind';
 import MenuItem from './MenuItem';
 import { useState } from 'react';
 import Header from './Header';
+import PropTypes from 'prop-types';
 
 const cx = classNames.bind(styles);
 const defaultFn = () => {};
@@ -12,14 +13,15 @@ const defaultFn = () => {};
 function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [history, setHistory] = useState([{ data: items }]);
 
+    const current = history[history.length - 1];
+    console.log(current);
+
     const handleBack = () => {
         setHistory((prev) => prev.slice(0, prev.length - 1));
     };
     const handleHide = () => {
         setHistory((prev) => prev.slice(0, 1));
     };
-
-    const current = history[history.length - 1];
 
     const renderItems = () => {
         return current.data.map((item, index) => {
@@ -60,5 +62,12 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
         </Tippy>
     );
 }
+
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    hideOnClick: PropTypes.bool,
+    onChange: PropTypes.func,
+};
 
 export default Menu;
